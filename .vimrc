@@ -44,6 +44,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'xolox/vim-session'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-surround'
+Plugin 'beaushinkle/vim-mapping-syntax'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
