@@ -132,10 +132,7 @@ augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
-"au BufReadPost *.projection set syntax=ruby
-"au BufReadPost *.bag set syntax=ruby
-"au BufReadPost *.mapping set syntax=ruby
-"au BufReadPost *.bms set syntax=ruby
+
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
@@ -188,5 +185,5 @@ let g:livedown_port = 1337
 let g:sexp_enable_insert_mode_mappings = 0
 
 let g:NERDCustomDelimiters = {
-    \ 'mapping': { 'left': ';'}
+    \ 'vim-mapping-syntax': { 'left': ';'}
 \ }
