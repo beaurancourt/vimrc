@@ -19,7 +19,6 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
 Plugin 'majutsushi/tagbar'
-Plugin 'Shougo/unite.vim'
 Plugin 'Peeja/vim-cdo'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'guns/vim-clojure-static'
@@ -45,6 +44,7 @@ Plugin 'xolox/vim-session'
 Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-surround'
 Plugin 'beaushinkle/vim-mapping-syntax'
+Plugin 'artnez/vim-wipeout'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -60,10 +60,9 @@ set nowrap
 set clipboard=unnamed
 set nohlsearch
 set splitright
-set bdir-=.
-set bdir+=/tmp
-set dir-=.
-set dir+=/tmp
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 set ignorecase
 set smartcase
 set shell=bash
@@ -91,6 +90,7 @@ set complete=.,w,b,u,t,i
 set tags=tags;/
 set ttyfast
 set mouse=a
+nnoremap S diw"0P
 
 nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>fish<CR>
 
@@ -168,14 +168,6 @@ endfunction
 "--------
 "End Multiple Cursors
 "--------
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('line', 'matchers', 'matcher_fuzzy')
-let g:unite_cursor_line_highlight = 'CursorLine'
-let g:unite_prompt = '>>'
-let g:unite_split_rule = 'botright'
-nnoremap <silent><leader>l :Unite -buffer-name=search -start-insert line<cr>
 
 let g:terminal_scrollback_buffer_size = 100000
 
