@@ -179,3 +179,4 @@ let g:sexp_enable_insert_mode_mappings = 0
 let g:NERDCustomDelimiters = {
     \ 'vim-mapping-syntax': { 'left': ';'}
 \ }
+let g:session_autoload = 'no'
