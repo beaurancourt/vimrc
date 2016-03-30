@@ -53,12 +53,11 @@ filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
 syntax enable
 set background=dark
-call togglebg#map("<F5>")
 colorscheme solarized
 set diffopt+=vertical
 set nowrap
 set clipboard=unnamed
-set nohlsearch
+set hlsearch
 set splitright
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -90,7 +89,9 @@ set complete=.,w,b,u,t,i
 set tags=tags;/
 set ttyfast
 set mouse=a
+set hlsearch
 nnoremap S diw"0P
+nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 
 nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>fish<CR>
 
