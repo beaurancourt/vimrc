@@ -27,7 +27,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'tpope/vim-dispatch'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'xolox/vim-easytags'
 Plugin 'jeetsukumaran/vim-filebeagle'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
@@ -57,7 +56,7 @@ colorscheme solarized
 set diffopt+=vertical
 set nowrap
 set clipboard=unnamed
-set hlsearch
+set nohlsearch
 set splitright
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -89,7 +88,6 @@ set complete=.,w,b,u,t,i
 set tags=tags;/
 set ttyfast
 set mouse=a
-set hlsearch
 nnoremap S diw"0P
 nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 
@@ -105,7 +103,7 @@ nmap <leader>gg :Git
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>cm :Gcommit -a<CR>
 nmap <C-b> :CtrlPBuffer<CR>
-nnoremap <CR> :nohlsearch<CR><CR>
+nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
 nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j
 
 nnoremap <leader>r :TagbarToggle<CR>
