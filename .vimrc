@@ -4,7 +4,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'vim-scripts/AutoClose'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'rking/ag.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -44,6 +43,8 @@ Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-surround'
 Plugin 'beaushinkle/vim-mapping-syntax'
 Plugin 'artnez/vim-wipeout'
+Plugin 'scrooloose/syntastic'
+Plugin 'jiangmiao/auto-pairs'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -66,15 +67,12 @@ set smartcase
 set shell=bash
 set showcmd
 set guifont=Source\ Code\ Pro:h15
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_clear_cache_on_exit=0
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/target/*,*.json,*.js,*.css,*/it-classes/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/target/*,*.json,*.css,*/it-classes/*
 noremap <C-S-]> :tabnext<CR>
 noremap <C-S-[> :tabprev<CR>
 set history=1000
 let mapleader=","
 set number
-let g:ctrlp_by_filename = 1
 set grepprg=ack
 set hidden
 set lazyredraw
@@ -102,7 +100,6 @@ nmap <leader>ya :%y+<CR>
 nmap <leader>gg :Git 
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>cm :Gcommit -a<CR>
-nmap <C-b> :CtrlPBuffer<CR>
 nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
 nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j
 
@@ -179,3 +176,25 @@ let g:NERDCustomDelimiters = {
     \ 'vim-mapping-syntax': { 'left': ';'}
 \ }
 let g:session_autoload = 'no'
+
+
+"-----
+"Syntastic
+"-----
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"----
+"CtrlP
+"----
+
+nmap <C-b> :CtrlPBuffer<CR>
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_by_filename = 1
+if executable("ag")
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
