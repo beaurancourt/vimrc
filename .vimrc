@@ -43,8 +43,8 @@ Plugin 'guns/vim-sexp'
 Plugin 'tpope/vim-surround'
 Plugin 'beaushinkle/vim-mapping-syntax'
 Plugin 'artnez/vim-wipeout'
-Plugin 'scrooloose/syntastic'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-salve'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -54,6 +54,7 @@ set omnifunc=syntaxcomplete#Complete
 syntax enable
 set background=dark
 colorscheme solarized
+call togglebg#map("<F6>")
 set diffopt+=vertical
 set nowrap
 set clipboard=unnamed
@@ -68,6 +69,7 @@ set shell=bash
 set showcmd
 set guifont=Source\ Code\ Pro:h15
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/target/*,*.json,*.css,*/it-classes/*
+xnoremap p "_dP
 noremap <C-S-]> :tabnext<CR>
 noremap <C-S-[> :tabprev<CR>
 set history=1000
@@ -83,16 +85,17 @@ set tabstop=2 shiftwidth=2 expandtab
 set cc=121
 let g:clojure_maxlines = 100
 set complete=.,w,b,u,t,i
-set tags=tags;/
+set tags=tags;~/merc/tags
 set ttyfast
 set mouse=a
 nnoremap S diw"0P
 nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 
+nmap <leader><Tab> :b#<CR>
 nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>fish<CR>
 
 nmap <leader>fr :RunTests<CR>
-nmap <leader>fe :%Eval<CR>
+nmap <leader>fe :w<CR>:%Eval<CR>
 nmap <leader>fc :Connect<CR>1<CR><CR>7888<CR><CR>
 nmap <leader>ya :%y+<CR>
 
@@ -101,8 +104,7 @@ nmap <leader>gg :Git
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>cm :Gcommit -a<CR>
 nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
-nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j
-
+nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j0
 nnoremap <leader>r :TagbarToggle<CR>
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'Scala',
@@ -177,16 +179,6 @@ let g:NERDCustomDelimiters = {
 \ }
 let g:session_autoload = 'no'
 
-
-"-----
-"Syntastic
-"-----
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 "----
 "CtrlP
 "----
@@ -195,6 +187,10 @@ nmap <C-b> :CtrlPBuffer<CR>
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_by_filename = 1
-if executable("ag")
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+
+"-----
+"Syntastic
+"-----
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
