@@ -4,47 +4,53 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'bkad/CamelCaseMotion'
-Plugin 'rking/ag.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'mattn/emmet-vim'
 Plugin 'Floobits/floobits-neovim'
-Plugin 'junegunn/fzf'
-Plugin 'othree/html5.vim'
-Plugin 'shime/livedown'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'karlbright/qfdo.vim'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'ervandew/supertab'
-Plugin 'godlygeek/tabular'
-Plugin 'majutsushi/tagbar'
+Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Peeja/vim-cdo'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'artnez/vim-wipeout'
+Plugin 'beaushinkle/vim-mapping-syntax'
+Plugin 'bkad/CamelCaseMotion'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'ervandew/supertab'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'godlygeek/tabular'
 Plugin 'guns/vim-clojure-highlight'
 Plugin 'guns/vim-clojure-static'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'tpope/vim-dispatch'
-Plugin 'Lokaltog/vim-easymotion'
+Plugin 'guns/vim-sexp'
 Plugin 'jeetsukumaran/vim-filebeagle'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'justinmk/vim-gtfo'
+Plugin 'justinmk/vim-sneak'
+Plugin 'karlbright/qfdo.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'lambdalisue/vim-fullscreen'
+Plugin 'mattn/emmet-vim'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'othree/html5.vim'
+Plugin 'rking/ag.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'shime/livedown'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
-Plugin 'lambdalisue/vim-fullscreen'
-Plugin 'justinmk/vim-gtfo'
 Plugin 'tpope/vim-haml'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'xolox/vim-misc'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-obsession'
-Plugin 'derekwyatt/vim-scala'
-Plugin 'tpope/vim-sensible'
-Plugin 'xolox/vim-session'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-surround'
-Plugin 'beaushinkle/vim-mapping-syntax'
-Plugin 'artnez/vim-wipeout'
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-salve'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/ebnf.vim'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -96,8 +102,9 @@ nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>fish<CR>
 
 nmap <leader>fr :RunTests<CR>
 nmap <leader>fe :w<CR>:%Eval<CR>
-nmap <leader>fc :Connect<CR>1<CR><CR>7888<CR><CR>
+nmap <leader>fc :Connect 7888<CR><CR>
 nmap <leader>ya :%y+<CR>
+nmap <leader>e V:Eval<CR>
 
 " Fugitive
 nmap <leader>gg :Git 
@@ -105,7 +112,10 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>cm :Gcommit -a<CR>
 nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
 nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j0
-nnoremap <leader>r :TagbarToggle<CR>
+nnoremap <leader>r :BTags<CR>
+
+nnoremap K :Ag "\b<C-R><C-W>\b"<CR>
+
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'Scala',
     \ 'kinds'     : [
@@ -126,6 +136,7 @@ inoremap <expr> <Esc> pumvisible() ? '<C-y><Esc>' : '<Esc>'
 nnoremap <silent><leader><C-]> <C-w><C-]><C-w>T
 
 nnoremap <leader>t <C-w>h<C-w>h<C-w>h<C-w>ki<UP><UP><CR>ps<CR><Down><Down><Down><Down><C-\><C-n>i<C-\><C-n>
+nnoremap <leader>w <C-w>h<C-w>h<C-w>h<C-w>ki<UP><CR><C-\><C-n><C-w>l
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -139,12 +150,9 @@ nmap <Up> [e
 nmap <Down> ]e
 vmap <Up> [egv
 vmap <Down> ]egv<F37>
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-W>k
 tnoremap <C-h> <C-\><C-n><C-W>h
 tnoremap <C-l> <C-\><C-n><C-W>l
-tnoremap <ESC> <C-\><C-n>
-tnoremap <Up> i<UP><CR><C-\><C-n>
+noremap <leader>l icom.elemica.clojure.ReplLauncher.start<CR>
 let g:easytags_async = 1
 
 "--------
@@ -182,11 +190,11 @@ let g:session_autoload = 'no'
 "----
 "CtrlP
 "----
-
 nmap <C-b> :CtrlPBuffer<CR>
+let g:ctrlp_map = '<c-o>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_clear_cache_on_exit=0
-let g:ctrlp_by_filename = 1
+
+nnoremap <C-p> :GFiles<CR>
 
 "-----
 "Syntastic
@@ -194,3 +202,5 @@ let g:ctrlp_by_filename = 1
 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+let vim_markdown_preview_hotkey='<C-m>'
