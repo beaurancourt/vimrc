@@ -51,9 +51,13 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/ebnf.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'w0rp/ale'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
+let g:session_autosave = 'no'
 syntax on
 filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
@@ -94,11 +98,12 @@ set complete=.,w,b,u,t,i
 set tags=tags;~/merc/tags
 set ttyfast
 set mouse=a
+vnoremap <C-c> "*y
 nnoremap S diw"0P
 nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 
 nmap <leader><Tab> :b#<CR>
-nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>fish<CR>
+nmap <leader>nt :vs<CR><C-w>h:vertical resize 60<CR>:term<CR>ifish<CR>
 
 nmap <leader>fr :RunTests<CR>
 nmap <leader>fe :w<CR>:%Eval<CR>
