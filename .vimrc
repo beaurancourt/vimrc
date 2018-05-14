@@ -54,6 +54,8 @@ Plugin 'xolox/vim-session'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'w0rp/ale'
+Plugin 'epeli/slimux'
+Plugin 'dzeban/vim-log-syntax'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -88,7 +90,6 @@ set number
 set grepprg=ack
 set hidden
 set lazyredraw
-set smartindent
 set smarttab
 set matchtime=2
 set tabstop=2 shiftwidth=2 expandtab
@@ -117,7 +118,7 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>cm :Gcommit -a<CR>
 nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
 nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j0
-nnoremap <leader>r :BTags<CR>
+nnoremap <leader>rb :SlimuxREPLSendBuffer<CR>
 
 nnoremap K :Ag "\b<C-R><C-W>\b"<CR>
 
@@ -136,7 +137,9 @@ let g:tagbar_type_scala = {
         \ 'm:methods'
     \ ]
 \ }
-let g:SuperTabDefaultCompletionType = "context"
+
+let g:SuperTabDefaultCompletionType = "<c-p>"
+
 inoremap <expr> <Esc> pumvisible() ? '<C-y><Esc>' : '<Esc>'
 nnoremap <silent><leader><C-]> <C-w><C-]><C-w>T
 
@@ -209,3 +212,5 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 let vim_markdown_preview_hotkey='<C-m>'
+
+au BufRead,BufNewFile *.go set noet ci pi sts=0 sw=2 ts=2
