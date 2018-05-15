@@ -4,7 +4,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Floobits/floobits-neovim'
 Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Peeja/vim-cdo'
