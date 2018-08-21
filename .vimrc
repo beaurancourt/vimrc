@@ -55,6 +55,8 @@ Plugin 'mxw/vim-jsx'
 Plugin 'w0rp/ale'
 Plugin 'epeli/slimux'
 Plugin 'dzeban/vim-log-syntax'
+Plugin 'othree/xml.vim'
+Plugin 'mustache/vim-mustache-handlebars'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -142,7 +144,7 @@ let g:SuperTabDefaultCompletionType = "<c-p>"
 inoremap <expr> <Esc> pumvisible() ? '<C-y><Esc>' : '<Esc>'
 nnoremap <silent><leader><C-]> <C-w><C-]><C-w>T
 
-nnoremap <leader>t <C-w>h<C-w>h<C-w>h<C-w>ki<UP><UP><CR>ps<CR><Down><Down><Down><Down><C-\><C-n>i<C-\><C-n>
+nnoremap <leader>t :BTags<CR>
 nnoremap <leader>w <C-w>h<C-w>h<C-w>h<C-w>ki<UP><CR><C-\><C-n><C-w>l
 augroup reload_vimrc " {
     autocmd!
