@@ -90,6 +90,14 @@ vnoremap <C-c> "*y
 nnoremap S diw"0P
 nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 
+"---------
+"FZF
+"---------
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <C-p> :FzfGFiles<CR>
+nnoremap <C-b> :FzfBuffers<CR>
+nnoremap K :FzfAg <C-R><C-W><CR>
+
 nmap <leader><Tab> :b#<CR>
 nmap <leader>nt :vs<CR><C-w>h:vertical resize 55<CR>:term<CR>ifish<CR>
 
@@ -106,8 +114,6 @@ nmap <leader>cm :Gcommit -a<CR>
 nnoremap <CR> :set nohlsearch<CR><CR>:echo<CR>
 nnoremap <leader>s <C-w>l<C-w>l<C-w>h:vertical resize 260<CR><C-w>l:vertical resize 130<CR><C-w>k:resize 10<CR><C-w>j0
 nnoremap <leader>rb :SlimuxREPLSendBuffer<CR>
-
-nnoremap K :Ag "\b<C-R><C-W>\b"<CR>
 
 let g:SuperTabDefaultCompletionType = "<c-p>"
 
@@ -160,9 +166,3 @@ let g:session_autoload = 'no'
 
 au BufRead,BufNewFile *.go set noet ci pi sts=0 sw=2 ts=2
 
-"---------
-"FZF
-"---------
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <C-p> :FzfGFiles<CR>
-nnoremap <C-b> :FzfBuffers<CR>
