@@ -14,4 +14,4 @@ mkdir ~/.vim/undo
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 nvim +PluginInstall +qall
 ```
-requires solarized colors in your terminal: http://ethanschoonover.com/solarized
+requires gruvbox in your terminal
