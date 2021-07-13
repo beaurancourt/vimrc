@@ -24,8 +24,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-dispatch'
+Plugin 'mg979/vim-visual-multi'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-haml'
@@ -43,11 +43,16 @@ Plugin 'othree/xml.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'neoclide/coc.nvim'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'fatih/vim-go'
+Plugin 'tomlion/vim-solidity'
+Plugin 'bounceme/poppy.vim'
+Plugin 'aserebryakov/vim-todo-lists'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
 
 set nocompatible
+set guifont=Fira\ Code\ Retina:h15
 filetype off
 let g:session_autosave = 'no'
 syntax on
@@ -58,6 +63,10 @@ syntax enable
 set termguicolors
 set background=dark
 colorscheme gruvbox8
+autocmd ColorScheme * highlight CocErrorFloat guifg=#ffffff
+autocmd ColorScheme * highlight CocInfoFloat guifg=#ffffff
+autocmd ColorScheme * highlight CocWarningFloat guifg=#ffffff
+autocmd ColorScheme * highlight SignColumn guibg=#adadad
 
 set diffopt+=vertical
 set nowrap
@@ -75,6 +84,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/target/*,*/it-classes/*
 xnoremap p "_dP
 noremap <C-S-]> :tabnext<CR>
 noremap <C-S-[> :tabprev<CR>
+nmap <silent>gx :sil !open <c-r><c-a><cr>
 set history=1000
 let mapleader=","
 set number
@@ -83,7 +93,10 @@ set hidden
 set lazyredraw
 set smarttab
 set matchtime=2
-set tabstop=2 shiftwidth=2 expandtab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
 set cc=121
 let g:clojure_maxlines = 100
 set complete=.,w,b,u,t,i
@@ -93,6 +106,7 @@ set mouse=a
 vnoremap <C-c> "*y
 nnoremap S diw"0P
 nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
+au! cursormoved * call PoppyInit()
 
 "---------
 "FZF
@@ -100,16 +114,33 @@ nnoremap <F5> mr:let @/ = @"<CR>`r:set hlsearch<CR>
 let g:fzf_command_prefix = 'Fzf'
 nnoremap <C-p> :FzfGFiles<CR>
 nnoremap <C-b> :FzfBuffers<CR>
-nnoremap K :FzfAg <C-R><C-W><CR>
+nmap <leader>r :FzfRg<CR>
+nnoremap <C-f> :GoDecls<CR>
 
 nmap <leader><Tab> :b#<CR>
 nmap <leader>nt :vs<CR><C-w>h:vertical resize 55<CR>:term<CR>ifish<CR>
 
+nmap <leader>tf :GoTestFunc<CR>
 nmap <leader>fr :RunTests<CR>
 nmap <leader>fe :w<CR>:%Eval<CR>
 nmap <leader>fc :Connect 7888<CR><CR>
 nmap <leader>ya :%y+<CR>
 nmap <leader>e V:Eval<CR>
+
+" Conquerer of Completion
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Fugitive
 nmap <leader>gg :Git
@@ -134,31 +165,10 @@ vmap <Up> [egv
 vmap <Down> ]egv<F37>
 tnoremap <C-h> <C-\><C-n><C-W>h
 tnoremap <C-l> <C-\><C-n><C-W>l
-noremap <leader>l icom.elemica.clojure.ReplLauncher.start<CR>
 let g:easytags_async = 1
 
 au BufRead,BufNewFile *.sbt set filetype=scala
 autocmd FileType json syntax match Comment +\/\/.\+$+
-
-"--------
-"Multiple Cursors
-"--------
-" Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
-
-" Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
-"--------
-"End Multiple Cursors
-"--------
 
 let g:terminal_scrollback_buffer_size = 100000
 
@@ -169,25 +179,6 @@ let g:NERDCustomDelimiters = {
 \ }
 let g:session_autoload = 'no'
 
-au BufRead,BufNewFile *.go set noet ci pi sts=0 sw=2 ts=2
-
-" Conquerer of Completion Stuff
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
@@ -244,3 +235,21 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" disable all linters as that is taken care of by coc.nvim
+let g:go_diagnostics_enabled = 0
+let g:go_metalinter_enabled = []
+" don't jump to errors after metalinter is invoked
+let g:go_jump_to_error = 0
+" run go imports on file save
+let g:go_fmt_command = "goimports"
+" automatically highlight variable your cursor is on
+let g:go_auto_sameids = 0
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
