@@ -21,7 +21,6 @@ paq {'justinmk/vim-gtfo'}
 paq {'lifepillar/vim-gruvbox8'}
 paq {'mg979/vim-visual-multi'}
 paq {'neoclide/coc.nvim'}
-paq {'neovim/nvim-lspconfig'}
 paq {'nvim-treesitter/nvim-treesitter'}
 paq {'scrooloose/nerdcommenter'}
 paq {'tomlion/vim-solidity'}
@@ -87,6 +86,10 @@ map('v', '<Up>', '[egv')
 map('v', '<Down>', ']egv<F37>')
 map('i', '<Tab>', 'v:lua.smart_tab()', {expr = true, noremap = true})
 map('i', '<Esc>', 'v:lua.smart_esc()', {expr = true, noremap = true})
+map('n', 'gd', '<Plug>(coc-definition)', { silent = true })
+map('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
+map('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
+map('n', 'gr', '<Plug>(coc-references)', { silent = true })
 
 cmd([[
   au! cursormoved * call PoppyInit()
@@ -132,8 +135,11 @@ require'lightspeed'.setup {
   highlight_unique_chars = true,
 }
 
-local lsp = require 'lspconfig'
--- For ccls we use the default settings
-lsp.ccls.setup {}
--- root_dir is where the LSP server will start: here at the project root otherwise in current folder
-lsp.pyls.setup {root_dir = lsp.util.root_pattern('.git', fn.getcwd())}
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true
+  }
+}
