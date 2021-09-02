@@ -94,6 +94,7 @@ map('n', 'gr', '<Plug>(coc-references)', { silent = true })
 cmd([[
   au! cursormoved * call PoppyInit()
   autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd BufNewFile,BufRead *.handlebars set syntax=html
 ]])
 
 g.fzf_command_prefix = 'Fzf'
