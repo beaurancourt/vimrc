@@ -37,6 +37,7 @@ opt.wrap = false
 opt.clipboard = 'unnamed'
 opt.hlsearch = false
 opt.splitright = true
+opt.ignorecase = true
 opt.smartcase = true
 opt.shell = 'zsh'
 opt.showcmd = true
