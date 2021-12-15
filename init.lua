@@ -37,7 +37,6 @@ opt.wrap = false
 opt.clipboard = 'unnamed'
 opt.hlsearch = false
 opt.splitright = true
-opt.ignorecase = true
 opt.smartcase = true
 opt.shell = 'zsh'
 opt.showcmd = true
@@ -137,6 +136,7 @@ require'lightspeed'.setup {
 }
 
 require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
   highlight = {
     enable = true,
   },
