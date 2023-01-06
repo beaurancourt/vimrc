@@ -6,9 +6,8 @@ clone this repo
 cd into it
 ```
 brew install neovim/neovim/neovim
-ln -s ~/vimrc/init.lua ~/.config/nvim/init.lua
-git clone https://github.com/savq/paq-nvim.git "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/opt/paq-nvim
+cd ~/.config/
+git clone git@github.com:beaushinkle/vimrc.git nvim
 nvim
-:PaqInstall
 ```
 requires gruvbox in your terminal
