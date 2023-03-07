@@ -30,13 +30,17 @@ use {
 	branch = "coq",
 	config = function()
     vim.g.coq_settings = {
-      auto_start = 'shut-up'
+      auto_start = 'shut-up',
+      keymap = {
+        jump_to_mark = '<nop>'
+      }
     }
 	end,
 }
 
 use "junegunn/fzf"
 use "junegunn/fzf.vim"
+use "junegunn/vim-easy-align"
 use "tpope/vim-surround"
 use {
   "ggandor/leap.nvim",
@@ -67,18 +71,24 @@ vim.g.coq_settings = {
 vim.g.fzf_command_prefix = 'Fzf'
 vim.g.easytags_async = 1
 vim.g.copilot_no_tab_map = true
+vim.g.filebeagle_show_hidden = true
 
 local map = function(mode, key, command, options)
   options = options or {}
   vim.api.nvim_set_keymap(mode, key, command, options)
 end
 
-map('i', '<C-j>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
-map('n', '<C-f>', ':FzfFiles<CR>', { noremap = true })
+map('i', '<C-t>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
 map('n', '<C-p>', ':FzfGFiles<CR>', { noremap = true })
 map('n', '<C-b>', ':FzfBuffers<CR>', { noremap = true })
+map('n', '<C-f>', ':FzfRg ', { noremap = true })
 map('n', '<Tab>', ':b#<CR>', { silent = true })
 map('n', '<leader>y', ':%y+<CR>')
 map('n', '<leader>u', ':lua require("user").update()')
+map('n', '<C-h>', ':wincmd h<CR>', { silent = true })
+map('n', '<C-j>', ':wincmd j<CR>', { silent = true })
+map('n', '<C-k>', ':wincmd k<CR>', { silent = true })
+map('n', '<C-l>', ':wincmd l<CR>', { silent = true })
+map('v', '<leader><Bslash>', ':EasyAlign*<Bar><Enter>', { noremap = true })
 
 user.flush()
